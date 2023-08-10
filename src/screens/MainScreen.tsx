@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
 import {Text} from 'react-native';
 import styled from 'styled-components/native';
-
-const Title = styled.Text`
-  font-size: 50px;
-  color: dodgerblue;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
+import Note from '../components/Note';
+import Title from '../components/Title';
 
 const MainView = styled.View`
   display: flex;
@@ -22,17 +16,6 @@ const NotesContainer = styled.View`
   justify-content: start;
   flex-grow: 1;
   gap: 10px;
-`;
-
-const TitleContainer = styled.View`
-  display: flex;
-  justify-content: center;
-`;
-
-const Note = styled.Text`
-  font-size: 30px;
-  color: dodgerblue;
-  padding-left: 30px;
 `;
 
 const AddNoteButton = styled.TouchableOpacity`
@@ -57,19 +40,17 @@ const MainScreen = () => {
 
   return (
     <MainView>
-      <TitleContainer>
-        <Title>Note Taking App</Title>
-      </TitleContainer>
+      <Title title="Note Taking App" />
       <NotesContainer>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
-        <Note>Note</Note>
+        <Note noteTitle="note 1" />
+        <Note noteTitle="note 2" />
+        <Note noteTitle="note 3" />
+        <Note noteTitle="note 4" />
+        <Note noteTitle="note 5" />
+        <Note noteTitle="note 6" />
+        <Note noteTitle="note 7" />
+        <Note noteTitle="note 8" />
+        <Note noteTitle="note 9" />
       </NotesContainer>
       <AddNoteButton onPress={test}>
         <Text
