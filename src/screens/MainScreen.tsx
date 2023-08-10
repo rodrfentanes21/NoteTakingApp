@@ -26,8 +26,8 @@ const AddNoteButton = styled.TouchableOpacity`
   width: 100px;
   border-radius: 9999px;
   display: flex;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
+  justify-content: center;
+  align-items: center;
   background-color: dodgerblue;
 `;
 
