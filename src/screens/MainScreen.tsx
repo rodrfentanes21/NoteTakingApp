@@ -50,7 +50,10 @@ const AddNoteButton = styled.TouchableOpacity`
 
 const MainScreen = () => {
   const [count, setCount] = useState(0);
-  const teste = () => setCount(prevCount => prevCount + 1);
+  const test = () => {
+    setCount(prevCount => prevCount + 1);
+    console.log(count);
+  };
 
   return (
     <MainView>
@@ -68,7 +71,7 @@ const MainScreen = () => {
         <Note>Note</Note>
         <Note>Note</Note>
       </NotesContainer>
-      <AddNoteButton onPress={teste}>
+      <AddNoteButton onPress={test}>
         <Text
           style={{
             fontSize: 50,
