@@ -1,14 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import MainScreen from './src/screens/MainScreen';
 
 const App = () => {
-  return (
-    <View>
-      <Text>Apppppp</Text>
-    </View>
-  );
+  return <MainScreen />;
 };
 
 export default App;
-
-const styles = StyleSheet.create({});
