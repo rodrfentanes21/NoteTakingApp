@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
+interface TitleProps {
+  title: string;
+}
+
 const TitleText = styled.Text`
   font-size: 50px;
   color: dodgerblue;
@@ -14,7 +18,7 @@ const TitleContainer = styled.View`
   justify-content: center;
 `;
 
-const Title = ({title}) => {
+const Title = ({title}: TitleProps) => {
   return (
     <TitleContainer>
       <TitleText>{title}</TitleText>
