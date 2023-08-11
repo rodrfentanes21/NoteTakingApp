@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { Note } from '../../data/Notes';
 import NoteComponent from './NoteComponent';
 
+export const Context = React.createContext({
+  showPopup: false,
+  setShowPopup: (value: boolean) => {},
+  noteValues: {
+    id: '',
+    title: '',
+    body: '',
+  },
+  setNoteValues: (value: Note) => {},
+});
+
 interface NoteProviderProps {
-    notes: Note[];
-  }
+  notes: Note[];
+}
 
 const NotesContainer = styled.View`
   display: flex;
@@ -16,17 +27,28 @@ const NotesContainer = styled.View`
 `;
 
 const NoteProvider = ({ notes }: NoteProviderProps) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [noteValues, setNoteValues] = useState<Note>({
+    id: '',
+    title: 'teste',
+    body: '',
+  });
+
   return (
-    <NotesContainer>
+    <Context.Provider
+      value={{ showPopup, setShowPopup, noteValues, setNoteValues }}
+    >
+      <NotesContainer>
         <FlatList
           data={notes}
           renderItem={({ item }) => (
-              <NoteComponent id={item.id} title={item.title} body={item.body} />
+            <NoteComponent id={item.id} title={item.title} body={item.body} />
           )}
           keyExtractor={item => item.id}
-      />
+        />
       </NotesContainer>
-  )
-}
+    </Context.Provider>
+  );
+};
 
-export default NoteProvider
+export default NoteProvider;
