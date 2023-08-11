@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { Context } from './NoteProvider';
 
 const ModalContainer = styled.View`
     flex: 1;
@@ -25,14 +26,17 @@ interface ModalComponentProps {
 }
 
 const NoteModal = () => {
+    const { showPopup, noteValues, setShowPopup, setNoteValues } =
+        useContext(Context);
+    console.log(showPopup);
     return (
-        <Modal visible={true} animationType="slide" transparent={true}>
+        <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>
                 <ModalContent>
                     <ModalText>teste123</ModalText>
                     <TouchableOpacity
                         onPress={() => {
-                            console.log('close');
+                            setShowPopup(false);
                         }}>
                         <ModalText>Close Modal</ModalText>
                     </TouchableOpacity>
