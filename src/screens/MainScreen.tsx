@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Text} from 'react-native';
 import styled from 'styled-components/native';
 import Note from '../components/Note';
 import Title from '../components/Title';
+import { Text } from 'react-native';
 
 const MainView = styled.View`
   display: flex;
@@ -20,16 +20,25 @@ const NotesContainer = styled.View`
 
 const AddNoteButton = styled.TouchableOpacity`
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  height: 100px;
-  width: 100px;
+  bottom: 15px;
+  right: 15px;
+  height: 80px;
+  width: 80px;
   border-radius: 9999px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: dodgerblue;
 `;
+
+const AddNoteButtonText = styled.Text`
+  font-size: 50px;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+  line-height: 60px;
+`;
+
 
 const MainScreen = () => {
   const [count, setCount] = useState(0);
@@ -53,14 +62,7 @@ const MainScreen = () => {
         <Note noteTitle="note 9" />
       </NotesContainer>
       <AddNoteButton onPress={test}>
-        <Text
-          style={{
-            fontSize: 50,
-            textAlign: 'center',
-            color: 'white',
-          }}>
-          +
-        </Text>
+        <AddNoteButtonText>+</AddNoteButtonText>
       </AddNoteButton>
     </MainView>
   );

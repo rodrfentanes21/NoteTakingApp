@@ -11,6 +11,7 @@ const TitleText = styled.Text`
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  /* NAO SEI BOTAR FONTE */
 `;
 
 const TitleContainer = styled.View`
