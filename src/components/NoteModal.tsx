@@ -30,14 +30,9 @@ const ModalTitle = styled.Text`
     color: dodgerblue;
 `;
 
-interface ModalComponentProps {
-    isVisible: boolean;
-    onClose: () => void;
-}
-
 const NoteModal = () => {
     const { showPopup, noteValues, setShowPopup, setNoteValues } =
-        useContext(Context);
+        useContext(Context); // maintain setnoteValues on context for (MAYBE) future edit feature
     return (
         <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>
