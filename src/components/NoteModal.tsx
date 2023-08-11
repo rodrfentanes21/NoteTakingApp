@@ -16,8 +16,18 @@ const ModalContent = styled.View`
     border-radius: 10px;
 `;
 
+const CloseText = styled.Text`
+    font-size: 20px;
+    color: darkslateblue;
+`;
+
 const ModalText = styled.Text`
     font-size: 20px;
+`;
+
+const ModalTitle = styled.Text`
+    font-size: 50px;
+    color: dodgerblue;
 `;
 
 interface ModalComponentProps {
@@ -32,12 +42,13 @@ const NoteModal = () => {
         <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>
                 <ModalContent>
-                    <ModalText>{noteValues.title}</ModalText>
+                    <ModalTitle>{noteValues.title}</ModalTitle>
+                    <ModalText>{noteValues.body}</ModalText>
                     <TouchableOpacity
                         onPress={() => {
                             setShowPopup(false);
                         }}>
-                        <ModalText>Close Modal</ModalText>
+                        <CloseText>Close</CloseText>
                     </TouchableOpacity>
                 </ModalContent>
             </ModalContainer>
