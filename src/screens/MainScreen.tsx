@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import Note from '../components/Note';
+import { Note, notes } from '../../data/Notes';
+import NoteProvider from '../components/NoteProvider';
 import Title from '../components/Title';
-import { Text } from 'react-native';
+
+notes
 
 const MainView = styled.View`
   display: flex;
@@ -11,12 +13,7 @@ const MainView = styled.View`
   flex: 1;
 `;
 
-const NotesContainer = styled.View`
-  display: flex;
-  justify-content: start;
-  flex-grow: 1;
-  gap: 10px;
-`;
+
 
 const AddNoteButton = styled.TouchableOpacity`
   position: absolute;
@@ -50,17 +47,7 @@ const MainScreen = () => {
   return (
     <MainView>
       <Title title="Note Taking App" />
-      <NotesContainer>
-        <Note noteTitle="note 1" />
-        <Note noteTitle="note 2" />
-        <Note noteTitle="note 3" />
-        <Note noteTitle="note 4" />
-        <Note noteTitle="note 5" />
-        <Note noteTitle="note 6" />
-        <Note noteTitle="note 7" />
-        <Note noteTitle="note 8" />
-        <Note noteTitle="note 9" />
-      </NotesContainer>
+      <NoteProvider notes={notes as Note[]} />
       <AddNoteButton onPress={test}>
         <AddNoteButtonText>+</AddNoteButtonText>
       </AddNoteButton>
