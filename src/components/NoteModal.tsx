@@ -32,7 +32,7 @@ const ModalTitle = styled.Text`
 
 const NoteModal = () => {
     const { showPopup, noteValues, setShowPopup, setNoteValues } =
-        useContext(Context); // maintain setnoteValues on context for (MAYBE) future edit feature
+        useContext(Context); // maintain setNoteValues on context for (MAYBE) future edit feature
     return (
         <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>
