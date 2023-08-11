@@ -16,7 +16,10 @@ module.exports = {
         'prettier/prettier': 0,
         'react/jsx-wrap-multilines': ['error', { prop: false }],
         'no-undef': 0,
-        'import/no-duplicates': ['error', { considerQueryString: true }],
+        'import/no-duplicates': [
+          'error',
+          { considerQueryString: true },
+        ],
         '@types/react-native-sqlite-storage': 0,
         '@typescript-eslint/explicit-module-boundary-types': [
           'error',
@@ -29,7 +32,10 @@ module.exports = {
         'import/no-unresolved': 0,
         'import/prefer-default-export': 1,
         'react/destructuring-assignment': 0,
-        'react/jsx-filename-extension': [2, { extensions: ['.ts', '.tsx'] }],
+        'react/jsx-filename-extension': [
+          2,
+          { extensions: ['.ts', '.tsx'] },
+        ],
         'react/no-array-index-key': 2,
         'react/prefer-stateless-function': 1,
         'react/prop-types': 2,

@@ -3,6 +3,7 @@ import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { Note } from '../../data/Notes';
 import NoteComponent from './NoteComponent';
+import NoteModal from './NoteModal';
 
 export const Context = React.createContext({
   showPopup: false,
@@ -47,6 +48,7 @@ const NoteProvider = ({ notes }: NoteProviderProps) => {
           keyExtractor={item => item.id}
         />
       </NotesContainer>
+      <NoteModal />
     </Context.Provider>
   );
 };
