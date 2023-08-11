@@ -1,25 +1,45 @@
 import React from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Modal, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
-const CenteredView = styled.View`
+const ModalContainer = styled.View`
     flex: 1;
-    justify-content: center;
     align-items: center;
-                margin-top: 22;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const NoteModal = () => {
-  return (
-    <View>
-      <Modal
-      animationType='fade'
-      transparent={true}
-      visible={true}>
-        <Text>teste</Text>
-      </Modal>
-    </View>
-  )
+const ModalContent = styled.View`
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+`;
+
+const ModalText = styled.Text`
+    font-size: 20px;
+`;
+
+interface ModalComponentProps {
+    isVisible: boolean;
+    onClose: () => void;
 }
 
-export default NoteModal
+const NoteModal = () => {
+    return (
+        <Modal visible={true} animationType="slide" transparent={true}>
+            <ModalContainer>
+                <ModalContent>
+                    <ModalText>teste123</ModalText>
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log('close');
+                        }}>
+                        <ModalText>Close Modal</ModalText>
+                    </TouchableOpacity>
+                </ModalContent>
+            </ModalContainer>
+        </Modal>
+    );
+};
+
+export default NoteModal;
