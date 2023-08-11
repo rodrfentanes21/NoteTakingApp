@@ -32,7 +32,7 @@ const NoteModal = () => {
         <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>
                 <ModalContent>
-                    <ModalText>teste123</ModalText>
+                    <ModalText>{noteValues.title}</ModalText>
                     <TouchableOpacity
                         onPress={() => {
                             setShowPopup(false);
