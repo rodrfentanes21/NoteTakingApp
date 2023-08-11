@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import { Note } from '../../data/Notes';
 import { Context } from './NoteProvider';
 
 interface NoteProps {
-  noteTitle: string;
+  id: string;
+  title: string;
+  body: string;
 }
 
 const NoteText = styled.Text`
@@ -13,13 +14,21 @@ const NoteText = styled.Text`
   color: dodgerblue;
   padding-left: 30px;
 `;
-const NoteComponent = (props: Note) => {
-  const { noteValues } = useContext(Context);
+const NoteComponent = (props: NoteProps) => {
+  const { noteValues, setShowPopup, setNoteValues } = useContext(Context);
+
+  const clickEvent = () => {
+    setShowPopup(true);
+    setNoteValues(props);
+    console.log(noteValues)
+  };
+  
   return (
-    <TouchableOpacity onPress={() => {console.log(noteValues.title)}}>
+    <TouchableOpacity onPress={clickEvent}>
       <NoteText>{props.title}</NoteText>
     </TouchableOpacity>
   );
 };
 
 export default NoteComponent;
+
