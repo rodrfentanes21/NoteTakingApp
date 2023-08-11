@@ -28,7 +28,6 @@ interface ModalComponentProps {
 const NoteModal = () => {
     const { showPopup, noteValues, setShowPopup, setNoteValues } =
         useContext(Context);
-    console.log(showPopup);
     return (
         <Modal visible={showPopup} animationType="fade" transparent={true}>
             <ModalContainer>

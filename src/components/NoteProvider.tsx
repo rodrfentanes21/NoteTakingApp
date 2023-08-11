@@ -31,7 +31,7 @@ const NoteProvider = ({ notes }: NoteProviderProps) => {
     const [showPopup, setShowPopup] = useState(false);
     const [noteValues, setNoteValues] = useState<Note>({
         id: '',
-        title: 'teste',
+        title: '',
         body: '',
     });
 
