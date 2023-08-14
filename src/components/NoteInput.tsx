@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 interface NoteInputProps {
@@ -20,11 +21,18 @@ const NoteInput: React.FC<NoteInputProps> = ({ setBody, body }) => {
     return (
         <NoteInputComponent
             onChangeText={setBody}
+            style={styles.alignVertical}
             value={body}
             multiline={true}
             placeholder="Enter note content"
         />
     );
 };
+
+const styles = StyleSheet.create({
+    alignVertical: {
+        textAlignVertical: 'top',
+    },
+});
 
 export default NoteInput;
