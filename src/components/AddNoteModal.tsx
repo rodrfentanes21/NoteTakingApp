@@ -84,8 +84,6 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
     const [body, setBody] = React.useState('');
 
     const addNoteHandler = () => {
-        console.log(title);
-        console.log(body);
         if (title.trim() !== '' && body.trim() !== '') {
             const newNote: Note = {
                 id: notes.length + 1 + '',
@@ -93,11 +91,8 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
                 body: body,
             };
 
-            // Push the new note to the notes array
             notes.push(newNote);
-            console.log(newNote);
 
-            // Close the modal and reset input fields
             setAddNoteModalView(false);
             setTitle('');
             setBody('');
