@@ -14,10 +14,12 @@ export const Context = React.createContext({
         body: '',
     },
     setNoteValues: (value: Note) => {},
+    updateNotes: (value: Note[]) => {},
 });
 
 interface NoteProviderProps {
     notes: Note[];
+    setNotesState: any
 }
 
 const NotesContainer = styled.View`
@@ -27,17 +29,26 @@ const NotesContainer = styled.View`
     gap: 10px;
 `;
 
-const NoteProvider = ({ notes }: NoteProviderProps) => {
+const NoteProvider = ({ notes, setNotesState }: NoteProviderProps) => {
     const [showPopup, setShowPopup] = useState(false);
     const [noteValues, setNoteValues] = useState<Note>({
         id: '',
         title: '',
         body: '',
     });
+    const updateNotes = (updatedNotes: Note[]) => {
+        setNotesState(updatedNotes);
+    };
 
     return (
         <Context.Provider
-            value={{ showPopup, setShowPopup, noteValues, setNoteValues }}>
+            value={{
+                showPopup,
+                setShowPopup,
+                noteValues,
+                setNoteValues,
+                updateNotes,
+            }}>
             <NotesContainer>
                 <FlatList
                     data={notes}

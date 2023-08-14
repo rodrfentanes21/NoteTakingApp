@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-native';
 import styled from 'styled-components/native';
 import { Note, notes } from '../../data/Notes';
@@ -80,8 +80,8 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
     addNoteModalView,
     setAddNoteModalView,
 }) => {
-    const [title, setTitle] = React.useState('');
-    const [body, setBody] = React.useState('');
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
 
     const addNoteHandler = () => {
         if (title.trim() !== '' && body.trim() !== '') {
@@ -97,6 +97,7 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
             setTitle('');
             setBody('');
         }
+        return false;
     };
     return (
         <Modal
