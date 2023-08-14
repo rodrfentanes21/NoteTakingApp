@@ -57,7 +57,7 @@ const ModalText = styled.TextInput`
 `;
 
 const ModalTitle = styled.TextInput`
-    font-size: 50px;
+    font-size: 30px;
     color: dodgerblue;
 `;
 
