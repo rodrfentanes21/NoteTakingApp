@@ -16,7 +16,7 @@ const ModalContainer = styled.View`
     background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const ModalContent = styled.View`
+const ModalContent = styled.KeyboardAvoidingView`
     background-color: white;
     padding: 20px;
     border-radius: 10px;

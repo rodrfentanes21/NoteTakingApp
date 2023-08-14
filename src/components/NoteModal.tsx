@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Modal } from 'react-native';
+import { KeyboardAvoidingView, Modal } from 'react-native';
 import styled from 'styled-components/native';
 import { notes } from '../../data/Notes';
 import { Context } from './NoteProvider';
 
-const ModalContainer = styled.View`
+const ModalContainer = styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -80,42 +80,44 @@ const NoteModal = () => {
         setShowPopup(false);
     };
     return (
-        <Modal visible={showPopup} animationType="fade" transparent={true}>
-            <ModalContainer>
-                <ModalContent>
-                    <ModalTitle
-                        value={noteValues.title}
-                        onChangeText={(text) =>
-                            setNoteValues({
-                                ...noteValues,
-                                title: text,
-                            })
-                        }
-                    />
-                    <ModalText
-                        value={noteValues.body}
-                        multiline={true}
-                        onChangeText={(text) =>
-                            setNoteValues({
-                                ...noteValues,
-                                body: text,
-                            })
-                        }
-                    />
-                    <ButtonsContainer>
-                        <CloseTouchableOpacity
-                            onPress={() => {
-                                setShowPopup(false);
-                            }}>
-                            <CloseText>Close</CloseText>
-                        </CloseTouchableOpacity>
-                        <AddNoteTouchableOpacity onPress={noteEditHandler}>
-                            <SaveText>Save</SaveText>
-                        </AddNoteTouchableOpacity>
-                    </ButtonsContainer>
-                </ModalContent>
-            </ModalContainer>
-        </Modal>
+        <KeyboardAvoidingView>
+            <Modal visible={showPopup} animationType="fade" transparent={true}>
+                <ModalContainer>
+                    <ModalContent>
+                        <ModalTitle
+                            value={noteValues.title}
+                            onChangeText={(text) =>
+                                setNoteValues({
+                                    ...noteValues,
+                                    title: text,
+                                })
+                            }
+                        />
+                        <ModalText
+                            value={noteValues.body}
+                            multiline={true}
+                            onChangeText={(text) =>
+                                setNoteValues({
+                                    ...noteValues,
+                                    body: text,
+                                })
+                            }
+                        />
+                        <ButtonsContainer>
+                            <CloseTouchableOpacity
+                                onPress={() => {
+                                    setShowPopup(false);
+                                }}>
+                                <CloseText>Close</CloseText>
+                            </CloseTouchableOpacity>
+                            <AddNoteTouchableOpacity onPress={noteEditHandler}>
+                                <SaveText>Save</SaveText>
+                            </AddNoteTouchableOpacity>
+                        </ButtonsContainer>
+                    </ModalContent>
+                </ModalContainer>
+            </Modal>
+        </KeyboardAvoidingView>
     );
 };
 
