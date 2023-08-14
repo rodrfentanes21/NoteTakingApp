@@ -77,6 +77,7 @@ const NoteModal = () => {
             return note;
         });
         updateNotes(updatedNotes);
+        setShowPopup(false);
     };
     return (
         <Modal visible={showPopup} animationType="fade" transparent={true}>
