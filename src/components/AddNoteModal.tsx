@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Modal, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Modal } from 'react-native';
 import styled from 'styled-components/native';
+import { Note, notes } from '../../data/Notes';
 import NoteInput from './NoteInput';
 
 interface addNoteModalState {
@@ -75,13 +76,33 @@ const AddText = styled.Text`
     color: white;
 `;
 
-
-
 const AddNoteModal: React.FC<addNoteModalState> = ({
     addNoteModalView,
     setAddNoteModalView,
 }) => {
     const [title, setTitle] = React.useState('');
+    const [body, setBody] = React.useState('');
+
+    const addNoteHandler = () => {
+        console.log(title);
+        console.log(body);
+        if (title.trim() !== '' && body.trim() !== '') {
+            const newNote: Note = {
+                id: notes.length + 1 + '',
+                title: title,
+                body: body,
+            };
+
+            // Push the new note to the notes array
+            notes.push(newNote);
+            console.log(newNote);
+
+            // Close the modal and reset input fields
+            setAddNoteModalView(false);
+            setTitle('');
+            setBody('');
+        }
+    };
     return (
         <Modal
             visible={addNoteModalView}
@@ -98,7 +119,7 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
                         placeholder="Enter title"
                     />
                     <ModalTextInputDescription>Body</ModalTextInputDescription>
-                    <NoteInput />
+                    <NoteInput setBody={setBody} body={body} />
                     <ButtonsContainer>
                         <CloseTouchableOpacity
                             onPress={() => {
@@ -106,10 +127,7 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
                             }}>
                             <CloseText>Close</CloseText>
                         </CloseTouchableOpacity>
-                        <AddNoteTouchableOpacity
-                            onPress={() => {
-                                setAddNoteModalView(false);
-                            }}>
+                        <AddNoteTouchableOpacity onPress={addNoteHandler}>
                             <AddText>Add</AddText>
                         </AddNoteTouchableOpacity>
                     </ButtonsContainer>
