@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { KeyboardAvoidingView, Modal } from 'react-native';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { notes } from '../../data/Notes';
 import { Context } from './NoteProvider';
@@ -61,6 +61,11 @@ const ModalTitle = styled.TextInput`
     color: dodgerblue;
 `;
 
+const ModalComponent = styled.Modal`
+    height: 50vh;
+    width: 95vw;
+`;
+
 const NoteModal = () => {
     const { showPopup, noteValues, setShowPopup, setNoteValues, updateNotes } =
         useContext(Context);
@@ -81,7 +86,10 @@ const NoteModal = () => {
     };
     return (
         <KeyboardAvoidingView>
-            <Modal visible={showPopup} animationType="fade" transparent={true}>
+            <ModalComponent
+                visible={showPopup}
+                animationType="fade"
+                transparent={true}>
                 <ModalContainer>
                     <ModalContent>
                         <ModalTitle
@@ -93,16 +101,18 @@ const NoteModal = () => {
                                 })
                             }
                         />
-                        <ModalText
-                            value={noteValues.body}
-                            multiline={true}
-                            onChangeText={(text) =>
-                                setNoteValues({
-                                    ...noteValues,
-                                    body: text,
-                                })
-                            }
-                        />
+                        <ScrollView>
+                            <ModalText
+                                value={noteValues.body}
+                                multiline={true}
+                                onChangeText={(text) =>
+                                    setNoteValues({
+                                        ...noteValues,
+                                        body: text,
+                                    })
+                                }
+                            />
+                        </ScrollView>
                         <ButtonsContainer>
                             <CloseTouchableOpacity
                                 onPress={() => {
@@ -116,7 +126,7 @@ const NoteModal = () => {
                         </ButtonsContainer>
                     </ModalContent>
                 </ModalContainer>
-            </Modal>
+            </ModalComponent>
         </KeyboardAvoidingView>
     );
 };
