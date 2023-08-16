@@ -18,7 +18,7 @@ export const Context = React.createContext({
 
 interface NoteProviderProps {
     notes: Note[];
-    setNotesState: any;
+    setNotesState: React.Dispatch<React.SetStateAction<Note[]>>;
 }
 
 const NoteProvider = ({ notes, setNotesState }: NoteProviderProps) => {
