@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Note, notes } from '../../data/Notes';
-import NoteProvider from '../components/NoteProvider';
-import Title from '../components/Title';
 import AddNoteButton from '../components/AddNoteButton';
 import AddNoteModal from '../components/AddNoteModal';
+import NoteProvider from '../components/NoteProvider';
+import Title from '../components/Title';
 
 const MainView = styled.View`
     display: flex;
@@ -14,13 +14,20 @@ const MainView = styled.View`
 `;
 
 const MainScreen = () => {
-    const [addNoteModalView, setAddNoteModalView] = useState(false)
+    const [addNoteModalView, setAddNoteModalView] = useState(false);
+    const [notesState, setNotesState] = useState(notes);
     return (
         <MainView>
             <Title title="Note Taking App" />
-            <NoteProvider notes={notes as Note[]} />
+            <NoteProvider
+                notes={notesState as Note[]}
+                setNotesState={setNotesState}
+            />
             <AddNoteButton setAddNoteModalView={setAddNoteModalView} />
-            <AddNoteModal addNoteModalView={addNoteModalView} setAddNoteModalView={setAddNoteModalView} />
+            <AddNoteModal
+                addNoteModalView={addNoteModalView}
+                setAddNoteModalView={setAddNoteModalView}
+            />
         </MainView>
     );
 };
