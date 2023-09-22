@@ -88,7 +88,7 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
 
     const newNoteMutation = useMutation({
         mutationFn: () =>
-            wait(1000).then(() =>
+            wait(0).then(() =>
                 notes.push({
                     title: title,
                     body: body,

@@ -74,15 +74,18 @@ const NoteModal = () => {
     const queryClient = useQueryClient();
 
     const editNoteMutation = useMutation({
-        mutationFn: () =>
-            wait(1000).then(() =>
-                notes.push({
-                    title: noteValues.title,
-                    body: noteValues.body,
-                }),
-            ),
+        mutationFn: async () => {
+            await wait(0);
+
+            const note = notes.find((note) => note.id === noteValues.id);
+
+            if (note) {
+                console.log(note.title);
+                note.title = noteValues.title;
+                note.body = noteValues.body;
+            }
+        },
         onSuccess: () => {
-            console.log('oi2');
             queryClient.invalidateQueries(['notes']);
         },
     });

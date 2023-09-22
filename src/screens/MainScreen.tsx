@@ -15,12 +15,13 @@ const MainView = styled.View`
 `;
 
 const MainScreen = () => {
+    const [addNoteModalView, setAddNoteModalView] = useState(false);
+
     const notesQuery = useQuery({
         queryKey: ['notes'],
-        queryFn: () => wait(1000).then(() => [...notes]),
+        queryFn: () => wait(0).then(() => [...notes]),
     });
-    // console.log(notesQuery.data);
-    const [addNoteModalView, setAddNoteModalView] = useState(false);
+
     return (
         <MainView>
             <Title title="Note Taking App" />
