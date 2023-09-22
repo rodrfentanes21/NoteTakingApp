@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query/build/lib/useQuery';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { Note, notes } from '../../data/Notes';
+import { notes } from '../../data/Notes';
 import AddNoteButton from '../components/AddNoteButton';
 import AddNoteModal from '../components/AddNoteModal';
 import NoteProvider from '../components/NoteProvider';
@@ -14,15 +15,16 @@ const MainView = styled.View`
 `;
 
 const MainScreen = () => {
+    const notesQuery = useQuery({
+        queryKey: ['notes'],
+        queryFn: () => wait(1000).then(() => [...notes]),
+    });
+    // console.log(notesQuery.data);
     const [addNoteModalView, setAddNoteModalView] = useState(false);
-    const [notesState, setNotesState] = useState(notes);
     return (
         <MainView>
             <Title title="Note Taking App" />
-            <NoteProvider
-                notes={notesState as Note[]}
-                setNotesState={setNotesState}
-            />
+            <NoteProvider notes={notesQuery.data} />
             <AddNoteButton setAddNoteModalView={setAddNoteModalView} />
             <AddNoteModal
                 addNoteModalView={addNoteModalView}
@@ -31,4 +33,8 @@ const MainScreen = () => {
         </MainView>
     );
 };
+
+function wait(duration: number) {
+    return new Promise((resolve) => setTimeout(resolve, duration));
+}
 export default MainScreen;
