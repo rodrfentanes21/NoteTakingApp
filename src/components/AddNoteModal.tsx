@@ -86,8 +86,6 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
 
     const queryClient = useQueryClient();
 
-    let CURRENT_ID = 6;
-
     const newNoteMutation = useMutation({
         mutationFn: () =>
             wait(1000).then(() =>

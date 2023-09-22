@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
@@ -70,18 +71,25 @@ const NoteModal = () => {
     const { showPopup, noteValues, setShowPopup, setNoteValues, updateNotes } =
         useContext(Context);
 
-    const noteEditHandler = () => {
-        const updatedNotes = notes.map((note) => {
-            if (note.id === noteValues.id) {
-                return {
-                    ...note,
+    const queryClient = useQueryClient();
+
+    const editNoteMutation = useMutation({
+        mutationFn: () =>
+            wait(1000).then(() =>
+                notes.push({
                     title: noteValues.title,
                     body: noteValues.body,
-                };
-            }
-            return note;
-        });
-        updateNotes(updatedNotes);
+                }),
+            ),
+        onSuccess: () => {
+            console.log('oi2');
+            queryClient.invalidateQueries(['notes']);
+        },
+    });
+
+    const noteEditHandler = () => {
+        console.log('oi');
+        editNoteMutation.mutate();
         setShowPopup(false);
     };
     return (
@@ -131,4 +139,7 @@ const NoteModal = () => {
     );
 };
 
+function wait(duration: number) {
+    return new Promise((resolve) => setTimeout(resolve, duration));
+}
 export default NoteModal;
