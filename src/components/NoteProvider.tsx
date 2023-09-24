@@ -13,7 +13,6 @@ export const Context = React.createContext({
         body: '',
     },
     setNoteValues: (value: Note) => {},
-    updateNotes: (value: Note[]) => {},
 });
 
 // interface NoteProviderProps {
@@ -21,16 +20,13 @@ export const Context = React.createContext({
 //     setNotesState: React.Dispatch<React.SetStateAction<Note[]>>;
 // }
 
-const NoteProvider = ({ notes, setNotesState }: any) => {
+const NoteProvider = ({ notes }: any) => {
     const [showPopup, setShowPopup] = useState(false);
     const [noteValues, setNoteValues] = useState<Note>({
         id: '',
         title: '',
         body: '',
     });
-    const updateNotes = (updatedNotes: Note[]) => {
-        setNotesState(updatedNotes);
-    };
 
     return (
         <Context.Provider
@@ -39,7 +35,6 @@ const NoteProvider = ({ notes, setNotesState }: any) => {
                 setShowPopup,
                 noteValues,
                 setNoteValues,
-                updateNotes,
             }}>
             <FlatList
                 data={notes}

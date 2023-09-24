@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { notes } from '../../data/Notes';
+import { Note, notes } from '../../data/Notes';
 import { Context } from './NoteProvider';
 
 const ModalContainer = styled.KeyboardAvoidingView`
@@ -68,33 +68,60 @@ const ModalComponent = styled.Modal`
 `;
 
 const NoteModal = () => {
-    const { showPopup, noteValues, setShowPopup, setNoteValues, updateNotes } =
+    const { showPopup, noteValues, setShowPopup, setNoteValues } =
         useContext(Context);
 
     const queryClient = useQueryClient();
 
-    const editNoteMutation = useMutation({
-        mutationFn: async () => {
+    const editNoteMutation = useMutation(
+        async (updatedNote: Note) => {
             await wait(0);
-
             const note = notes.find((note) => note.id === noteValues.id);
-
+            
             if (note) {
-                console.log(note.title);
                 note.title = noteValues.title;
                 note.body = noteValues.body;
             }
+            
+            
+            return updatedNote;
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries(['notes']);
-        },
-    });
+        {
+            onMutate: (updatedNote) => {
+                /* 
+                *  isso é um optimistic update, caso de merda no codigo ao implementar a api so ranca fora essa merda 
+                */
+                queryClient.cancelQueries(['notes']);
+
+                const previousNotes = queryClient.getQueryData(['notes']);
+
+                queryClient.setQueryData(['notes'], (prevNotes) =>
+                    (prevNotes as Note[]).map((note: Note) =>
+                        note.id === updatedNote.id ? { ...note, ...updatedNote } : note
+                    )
+                );
+
+                return { previousNotes, updatedNote };
+            },
+            onError: (err, variables, context) => {
+                queryClient.setQueryData(['notes'], context?.previousNotes);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries(['notes']);
+            },
+        }
+    );
 
     const noteEditHandler = () => {
-        console.log('oi');
-        editNoteMutation.mutate();
+        const updatedNote = {
+            id: noteValues.id,
+            title: noteValues.title,
+            body: noteValues.body,
+        };
+        editNoteMutation.mutate(updatedNote);
         setShowPopup(false);
     };
+
     return (
         <KeyboardAvoidingView>
             <ModalComponent
