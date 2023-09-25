@@ -74,46 +74,33 @@ const NoteModal = () => {
 
     const queryClient = useQueryClient();
 
-    const editNoteMutation = useMutation(
-        // async (updatedNote: Note) => {
-        //     await wait(0);
-        //     const note = notes.find((note) => note.id === noteValues.id);
+    const editNoteMutation = useMutation({
+        mutationFn: patchNote,
+        onMutate: (updatedNote) => {
+            /*
+             *  optimistic update
+             */
+            queryClient.cancelQueries(['notes']);
 
-        //     if (note) {
-        //         note.title = noteValues.title;
-        //         note.body = noteValues.body;
-        //     }
+            const previousNotes = queryClient.getQueryData(['notes']);
 
-        //     return updatedNote;
-        // },
-        {
-            mutationFn: patchNote,
-            onMutate: (updatedNote) => {
-                /*
-                 *  optimistic update
-                 */
-                queryClient.cancelQueries(['notes']);
+            queryClient.setQueryData(['notes'], (prevNotes) =>
+                (prevNotes as Note[]).map((note: Note) =>
+                    note.id === updatedNote.id
+                        ? { ...note, ...updatedNote }
+                        : note,
+                ),
+            );
 
-                const previousNotes = queryClient.getQueryData(['notes']);
-
-                queryClient.setQueryData(['notes'], (prevNotes) =>
-                    (prevNotes as Note[]).map((note: Note) =>
-                        note.id === updatedNote.id
-                            ? { ...note, ...updatedNote }
-                            : note,
-                    ),
-                );
-
-                return { previousNotes, updatedNote };
-            },
-            onError: (err, variables, context) => {
-                queryClient.setQueryData(['notes'], context?.previousNotes);
-            },
-            onSuccess: () => {
-                queryClient.invalidateQueries(['notes']);
-            },
+            return { previousNotes, updatedNote };
         },
-    );
+        onError: (err, variables, context) => {
+            queryClient.setQueryData(['notes'], context?.previousNotes);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['notes']);
+        },
+    });
 
     const noteEditHandler = () => {
         const updatedNote = {

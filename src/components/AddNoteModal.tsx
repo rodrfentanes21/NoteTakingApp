@@ -99,7 +99,6 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
                 title: title,
                 body: body,
             });
-            // newNoteMutation.mutate();
 
             setAddNoteModalView(false);
             setTitle('');
