@@ -77,28 +77,29 @@ const NoteModal = () => {
         async (updatedNote: Note) => {
             await wait(0);
             const note = notes.find((note) => note.id === noteValues.id);
-            
+
             if (note) {
                 note.title = noteValues.title;
                 note.body = noteValues.body;
             }
-            
-            
+
             return updatedNote;
         },
         {
             onMutate: (updatedNote) => {
-                /* 
-                *  isso é um optimistic update, caso de merda no codigo ao implementar a api so ranca fora essa merda 
-                */
+                /*
+                 *  isso é um optimistic update, caso de merda no codigo ao implementar a api, so ranca fora essa merda
+                 */
                 queryClient.cancelQueries(['notes']);
 
                 const previousNotes = queryClient.getQueryData(['notes']);
 
                 queryClient.setQueryData(['notes'], (prevNotes) =>
                     (prevNotes as Note[]).map((note: Note) =>
-                        note.id === updatedNote.id ? { ...note, ...updatedNote } : note
-                    )
+                        note.id === updatedNote.id
+                            ? { ...note, ...updatedNote }
+                            : note,
+                    ),
                 );
 
                 return { previousNotes, updatedNote };
@@ -109,7 +110,7 @@ const NoteModal = () => {
             onSuccess: () => {
                 queryClient.invalidateQueries(['notes']);
             },
-        }
+        },
     );
 
     const noteEditHandler = () => {

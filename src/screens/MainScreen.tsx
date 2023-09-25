@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query/build/lib/useQuery';
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { notes } from '../../data/Notes';
+import { getNotes } from '../api/notes';
 import AddNoteButton from '../components/AddNoteButton';
 import AddNoteModal from '../components/AddNoteModal';
 import NoteProvider from '../components/NoteProvider';
@@ -19,9 +19,11 @@ const MainScreen = () => {
 
     const notesQuery = useQuery({
         queryKey: ['notes'],
-        queryFn: () => wait(0).then(() => [...notes]),
+        queryFn: getNotes,
+        onError: (error) => {
+            console.error(error);
+        },
     });
-
     return (
         <MainView>
             <Title title="Note Taking App" />
