@@ -14,3 +14,12 @@ export function postNote({ title, body }) {
     })
         .then(res => res.data)
 }
+
+export function patchNote(updatedNote) {
+    return axios.patch("http://192.168.56.1:8000/api/notes/", {
+        'id': updatedNote.id,
+        'title': updatedNote.title,
+        'body': updatedNote.body,
+    })
+        .then(res => res.data)
+}

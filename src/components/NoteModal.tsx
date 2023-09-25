@@ -2,7 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { Note, notes } from '../../data/Notes';
+import { Note } from '../../data/Notes';
+import { patchNote } from '../api/notes';
 import { Context } from './NoteProvider';
 
 const ModalContainer = styled.KeyboardAvoidingView`
@@ -74,18 +75,19 @@ const NoteModal = () => {
     const queryClient = useQueryClient();
 
     const editNoteMutation = useMutation(
-        async (updatedNote: Note) => {
-            await wait(0);
-            const note = notes.find((note) => note.id === noteValues.id);
+        // async (updatedNote: Note) => {
+        //     await wait(0);
+        //     const note = notes.find((note) => note.id === noteValues.id);
 
-            if (note) {
-                note.title = noteValues.title;
-                note.body = noteValues.body;
-            }
+        //     if (note) {
+        //         note.title = noteValues.title;
+        //         note.body = noteValues.body;
+        //     }
 
-            return updatedNote;
-        },
+        //     return updatedNote;
+        // },
         {
+            mutationFn: patchNote,
             onMutate: (updatedNote) => {
                 /*
                  *  optimistic update
