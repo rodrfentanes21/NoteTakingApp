@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Modal } from 'react-native';
 import styled from 'styled-components/native';
-import { notes } from '../../data/Notes';
+import { postNote } from '../api/notes';
 import NoteInput from './NoteInput';
 
 interface addNoteModalState {
@@ -87,13 +87,7 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
     const queryClient = useQueryClient();
 
     const newNoteMutation = useMutation({
-        mutationFn: () =>
-            wait(0).then(() =>
-                notes.push({
-                    title: title,
-                    body: body,
-                }),
-            ),
+        mutationFn: postNote,
         onSuccess: () => {
             queryClient.invalidateQueries(['notes']);
         },
@@ -101,8 +95,11 @@ const AddNoteModal: React.FC<addNoteModalState> = ({
 
     const addNoteHandler = () => {
         if (title.trim() !== '' && body.trim() !== '') {
-            console.log('teste');
-            newNoteMutation.mutate();
+            newNoteMutation.mutate({
+                title: title,
+                body: body,
+            });
+            // newNoteMutation.mutate();
 
             setAddNoteModalView(false);
             setTitle('');
