@@ -88,7 +88,7 @@ const NoteModal = () => {
         {
             onMutate: (updatedNote) => {
                 /*
-                 *  isso é um optimistic update, caso de merda no codigo ao implementar a api, so ranca fora essa merda
+                 *  optimistic update
                  */
                 queryClient.cancelQueries(['notes']);
 
